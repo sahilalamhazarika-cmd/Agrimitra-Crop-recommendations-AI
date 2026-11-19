@@ -1,0 +1,512 @@
+{
+  "file": {
+    "name": "project_file_crop_recommendations_",
+    "type": "Python script",
+    "line_count": 255,
+    "size_bytes": 10483
+  },
+  "project": {
+    "name": "AgriMitra",
+    "title": "AgriMitra - AI Crop Recommendation System",
+    "course": {
+      "board": "CBSE",
+      "class": 12,
+      "subject": "Artificial Intelligence",
+      "subject_code": "843",
+      "project_type": "Capstone Project"
+    },
+    "problem_scoping": {
+      "who": "Farmers, especially small and marginal farmers",
+      "what": "They are unsure which crop suits their soil and local weather",
+      "where": "On the farm, before every sowing season",
+      "why": "A wrong crop choice means low yield and money lost. An AI model can learn from past data and suggest suitable crops"
+    },
+    "sustainable_development_goal": "UN Sustainable Development Goal 2 - Zero Hunger",
+    "ai_task": {
+      "type": "Multi-class classification",
+      "detail": "7 input values -> 1 crop out of many"
+    },
+    "how_to_run": {
+      "install": "pip install pandas numpy scikit-learn matplotlib",
+      "run": "python crop_recommendation_ai.py"
+    }
+  },
+  "dependencies": {
+    "pip_packages": [
+      "pandas",
+      "numpy",
+      "scikit-learn",
+      "matplotlib"
+    ],
+    "imports": [
+      {
+        "module": "os",
+        "names": null,
+        "alias": null
+      },
+      {
+        "module": "joblib",
+        "names": null,
+        "alias": null
+      },
+      {
+        "module": "matplotlib.pyplot",
+        "names": null,
+        "alias": "plt"
+      },
+      {
+        "module": "numpy",
+        "names": null,
+        "alias": "np"
+      },
+      {
+        "module": "pandas",
+        "names": null,
+        "alias": "pd"
+      },
+      {
+        "module": "sklearn.ensemble",
+        "names": [
+          "RandomForestClassifier"
+        ],
+        "alias": null
+      },
+      {
+        "module": "sklearn.metrics",
+        "names": [
+          "ConfusionMatrixDisplay",
+          "accuracy_score",
+          "classification_report"
+        ],
+        "alias": null
+      },
+      {
+        "module": "sklearn.model_selection",
+        "names": [
+          "train_test_split"
+        ],
+        "alias": null
+      },
+      {
+        "module": "sklearn.neighbors",
+        "names": [
+          "KNeighborsClassifier"
+        ],
+        "alias": null
+      },
+      {
+        "module": "sklearn.pipeline",
+        "names": [
+          "make_pipeline"
+        ],
+        "alias": null
+      },
+      {
+        "module": "sklearn.preprocessing",
+        "names": [
+          "StandardScaler"
+        ],
+        "alias": null
+      },
+      {
+        "module": "sklearn.tree",
+        "names": [
+          "DecisionTreeClassifier"
+        ],
+        "alias": null
+      }
+    ]
+  },
+  "settings": {
+    "data_file": "crop_data.csv",
+    "model_file": "crop_model.pkl",
+    "target": "label",
+    "features": [
+      "N",
+      "P",
+      "K",
+      "temperature",
+      "humidity",
+      "ph",
+      "rainfall"
+    ],
+    "questions": {
+      "N": "Nitrogen (N) in soil",
+      "P": "Phosphorus (P) in soil",
+      "K": "Potassium (K) in soil",
+      "temperature": "Average temperature (deg C)",
+      "humidity": "Relative humidity (%)",
+      "ph": "Soil pH value",
+      "rainfall": "Rainfall (mm)"
+    }
+  },
+  "crop_profiles": {
+    "description": "Approximate typical growing conditions, used ONLY to create sample data when no real dataset is available.",
+    "crops": {
+      "rice": {
+        "N": 80,
+        "P": 48,
+        "K": 40,
+        "temperature": 24.0,
+        "humidity": 82,
+        "ph": 6.4,
+        "rainfall": 236
+      },
+      "maize": {
+        "N": 78,
+        "P": 48,
+        "K": 20,
+        "temperature": 22.5,
+        "humidity": 65,
+        "ph": 6.3,
+        "rainfall": 85
+      },
+      "chickpea": {
+        "N": 40,
+        "P": 68,
+        "K": 80,
+        "temperature": 19.0,
+        "humidity": 17,
+        "ph": 7.3,
+        "rainfall": 80
+      },
+      "kidneybeans": {
+        "N": 21,
+        "P": 68,
+        "K": 20,
+        "temperature": 20.0,
+        "humidity": 22,
+        "ph": 5.8,
+        "rainfall": 106
+      },
+      "lentil": {
+        "N": 19,
+        "P": 68,
+        "K": 19,
+        "temperature": 24.5,
+        "humidity": 65,
+        "ph": 6.9,
+        "rainfall": 46
+      },
+      "mungbean": {
+        "N": 21,
+        "P": 47,
+        "K": 20,
+        "temperature": 28.5,
+        "humidity": 85,
+        "ph": 6.7,
+        "rainfall": 48
+      },
+      "cotton": {
+        "N": 118,
+        "P": 46,
+        "K": 20,
+        "temperature": 24.0,
+        "humidity": 80,
+        "ph": 6.9,
+        "rainfall": 80
+      },
+      "jute": {
+        "N": 78,
+        "P": 47,
+        "K": 40,
+        "temperature": 25.0,
+        "humidity": 79,
+        "ph": 6.7,
+        "rainfall": 175
+      },
+      "banana": {
+        "N": 100,
+        "P": 82,
+        "K": 50,
+        "temperature": 27.5,
+        "humidity": 80,
+        "ph": 6.0,
+        "rainfall": 105
+      },
+      "mango": {
+        "N": 20,
+        "P": 27,
+        "K": 30,
+        "temperature": 31.0,
+        "humidity": 50,
+        "ph": 5.8,
+        "rainfall": 95
+      },
+      "apple": {
+        "N": 21,
+        "P": 134,
+        "K": 199,
+        "temperature": 22.5,
+        "humidity": 92,
+        "ph": 5.9,
+        "rainfall": 113
+      },
+      "coffee": {
+        "N": 101,
+        "P": 29,
+        "K": 30,
+        "temperature": 25.5,
+        "humidity": 58,
+        "ph": 6.8,
+        "rainfall": 158
+      }
+    }
+  },
+  "sample_data_generation": {
+    "function": "make_sample_data",
+    "used_when": "No CSV file is found",
+    "rows_per_crop": 100,
+    "seed": 42,
+    "noise": "Each typical value is multiplied by a random factor ~ Normal(mean=1, sd=0.12), so no two farms are identical",
+    "post_processing": {
+      "humidity_max": 100,
+      "ph_range": [
+        3.5,
+        9.5
+      ],
+      "round_decimals": 2,
+      "shuffled": true
+    }
+  },
+  "model_training": {
+    "function": "train_and_evaluate",
+    "train_test_split": {
+      "test_size": 0.2,
+      "random_state": 42,
+      "stratified_by_target": true
+    },
+    "preprocessing": "StandardScaler, applied inside a scikit-learn pipeline before each algorithm",
+    "candidates": [
+      {
+        "name": "Decision Tree",
+        "class": "DecisionTreeClassifier",
+        "module": "sklearn.tree",
+        "parameters": {
+          "random_state": 42
+        }
+      },
+      {
+        "name": "K-Nearest Neighbours",
+        "class": "KNeighborsClassifier",
+        "module": "sklearn.neighbors",
+        "parameters": {
+          "n_neighbors": 5
+        }
+      },
+      {
+        "name": "Random Forest",
+        "class": "RandomForestClassifier",
+        "module": "sklearn.ensemble",
+        "parameters": {
+          "n_estimators": 200,
+          "random_state": 42
+        }
+      }
+    ],
+    "selection": "The model with the highest accuracy on the test set is chosen automatically",
+    "evaluation": [
+      "Accuracy on the test set for each candidate",
+      "Classification report (precision, recall, F1)",
+      "Confusion matrix chart",
+      "Feature importance chart (tree-based models only)"
+    ]
+  },
+  "demo_prediction": {
+    "description": "Field details used for the demo prediction in main()",
+    "input": {
+      "N": 85,
+      "P": 45,
+      "K": 42,
+      "temperature": 23,
+      "humidity": 80,
+      "ph": 6.5,
+      "rainfall": 230
+    }
+  },
+  "outputs": [
+    {
+      "file": "crop_data.csv",
+      "produced_by": "load_data",
+      "description": "Input dataset; created from simulated sample data only if the file does not exist"
+    },
+    {
+      "file": "1_rainfall_by_crop.png",
+      "produced_by": "explore_data",
+      "description": "Box plot of the rainfall needed by each crop"
+    },
+    {
+      "file": "2_confusion_matrix.png",
+      "produced_by": "train_and_evaluate",
+      "description": "Confusion matrix of the best model on the test set"
+    },
+    {
+      "file": "3_feature_importance.png",
+      "produced_by": "train_and_evaluate",
+      "description": "Bar chart of which input matters most (tree-based models only)"
+    },
+    {
+      "file": "crop_model.pkl",
+      "produced_by": "main",
+      "description": "Trained model saved with joblib so other programs can reuse it"
+    }
+  ],
+  "sections": [
+    {
+      "title": "SETTINGS",
+      "start_line": 38,
+      "end_line": 72,
+      "functions": []
+    },
+    {
+      "title": "STEP 1: DATA ACQUISITION",
+      "start_line": 75,
+      "end_line": 109,
+      "functions": [
+        "make_sample_data",
+        "load_data"
+      ]
+    },
+    {
+      "title": "STEP 2: DATA EXPLORATION",
+      "start_line": 112,
+      "end_line": 131,
+      "functions": [
+        "explore_data"
+      ]
+    },
+    {
+      "title": "STEPS 3-5: PREPARATION, MODELLING AND EVALUATION",
+      "start_line": 134,
+      "end_line": 186,
+      "functions": [
+        "train_and_evaluate"
+      ]
+    },
+    {
+      "title": "STEP 6: PREDICTION (using the trained model)",
+      "start_line": 189,
+      "end_line": 228,
+      "functions": [
+        "recommend",
+        "ask_user"
+      ]
+    },
+    {
+      "title": "MAIN PROGRAM",
+      "start_line": 231,
+      "end_line": 255,
+      "functions": [
+        "main"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "make_sample_data",
+      "signature": "make_sample_data(rows_per_crop=100, seed=42)",
+      "parameters": [
+        {
+          "name": "rows_per_crop",
+          "default": 100
+        },
+        {
+          "name": "seed",
+          "default": 42
+        }
+      ],
+      "docstring": "Creates simulated farm records (used when no CSV is found).",
+      "summary": "Builds simulated farm records for every crop in CROP_PROFILES by adding random noise to its typical values.",
+      "section": "STEP 1: DATA ACQUISITION",
+      "start_line": 78,
+      "end_line": 92
+    },
+    {
+      "name": "load_data",
+      "signature": "load_data()",
+      "parameters": [],
+      "docstring": "Loads crop_data.csv, or creates it if it does not exist.",
+      "summary": "Loads the CSV (or creates and saves sample data if it is missing), checks the required columns exist, and drops rows with empty values.",
+      "section": "STEP 1: DATA ACQUISITION",
+      "start_line": 95,
+      "end_line": 109
+    },
+    {
+      "name": "explore_data",
+      "signature": "explore_data(df)",
+      "parameters": [
+        {
+          "name": "df"
+        }
+      ],
+      "docstring": null,
+      "summary": "Prints the dataset shape, missing-value count, number of crops and feature statistics, and saves a rainfall-by-crop box plot.",
+      "section": "STEP 2: DATA EXPLORATION",
+      "start_line": 115,
+      "end_line": 131
+    },
+    {
+      "name": "train_and_evaluate",
+      "signature": "train_and_evaluate(df)",
+      "parameters": [
+        {
+          "name": "df"
+        }
+      ],
+      "docstring": null,
+      "summary": "Splits the data, trains three candidate models, keeps the most accurate one, prints a classification report and saves evaluation charts.",
+      "section": "STEPS 3-5: PREPARATION, MODELLING AND EVALUATION",
+      "start_line": 137,
+      "end_line": 186
+    },
+    {
+      "name": "recommend",
+      "signature": "recommend(model, df, values)",
+      "parameters": [
+        {
+          "name": "model"
+        },
+        {
+          "name": "df"
+        },
+        {
+          "name": "values"
+        }
+      ],
+      "docstring": "Takes 7 numbers and prints the top 3 crops with confidence.",
+      "summary": "Predicts crop probabilities for one set of 7 inputs, prints the top 3 crops with confidence, and warns about inputs outside the training data range.",
+      "section": "STEP 6: PREDICTION (using the trained model)",
+      "start_line": 192,
+      "end_line": 206
+    },
+    {
+      "name": "ask_user",
+      "signature": "ask_user(model, df)",
+      "parameters": [
+        {
+          "name": "model"
+        },
+        {
+          "name": "df"
+        }
+      ],
+      "docstring": "Keeps asking for field details and recommends crops.",
+      "summary": "Interactive loop that asks for each of the 7 inputs (showing the data's min-max range) and prints recommendations; typing q quits.",
+      "section": "STEP 6: PREDICTION (using the trained model)",
+      "start_line": 209,
+      "end_line": 228
+    },
+    {
+      "name": "main",
+      "signature": "main()",
+      "parameters": [],
+      "docstring": null,
+      "summary": "Runs the full workflow: load data, explore it, train, save the model, run a demo prediction, then start the interactive loop.",
+      "section": "MAIN PROGRAM",
+      "start_line": 234,
+      "end_line": 251
+    }
+  ],
+  "entry_point": "main()",
+  "source_code": "\"\"\"\n==========================================================================\n AgriMitra - AI Crop Recommendation System\n CBSE Class 12 | Artificial Intelligence (843) | Capstone Project\n==========================================================================\n\nPROBLEM SCOPING (the 4 Ws)\n  Who   : Farmers, especially small and marginal farmers\n  What  : They are unsure which crop suits their soil and local weather\n  Where : On the farm, before every sowing season\n  Why   : A wrong crop choice means low yield and money lost. An AI model\n          can learn from past data and suggest suitable crops\n          (supports UN Sustainable Development Goal 2 - Zero Hunger)\n\nAI TASK : Multi-class classification\n          (7 input values -> 1 crop out of many)\n\nHOW TO RUN\n  pip install pandas numpy scikit-learn matplotlib\n  python crop_recommendation_ai.py\n\"\"\"\n\nimport os\n\nimport joblib\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport pandas as pd\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,\n                             classification_report)\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.tree import DecisionTreeClassifier\n\n# ----------------------------------------------------------------------\n# SETTINGS\n# ----------------------------------------------------------------------\nDATA_FILE = \"crop_data.csv\"     # input data (replace with your own CSV)\nMODEL_FILE = \"crop_model.pkl\"   # the trained model is saved here\nTARGET = \"label\"                # column that holds the crop name\nFEATURES = [\"N\", \"P\", \"K\", \"temperature\", \"humidity\", \"ph\", \"rainfall\"]\n\nQUESTIONS = {\n    \"N\": \"Nitrogen (N) in soil\",\n    \"P\": \"Phosphorus (P) in soil\",\n    \"K\": \"Potassium (K) in soil\",\n    \"temperature\": \"Average temperature (deg C)\",\n    \"humidity\": \"Relative humidity (%)\",\n    \"ph\": \"Soil pH value\",\n    \"rainfall\": \"Rainfall (mm)\",\n}\n\n# Approximate typical growing conditions, used ONLY to create sample data\n# when no real dataset is available.\nCROP_PROFILES = {\n    #               N    P    K   temp  humid  pH   rain\n    \"rice\":        (80,  48,  40, 24.0, 82, 6.4, 236),\n    \"maize\":       (78,  48,  20, 22.5, 65, 6.3,  85),\n    \"chickpea\":    (40,  68,  80, 19.0, 17, 7.3,  80),\n    \"kidneybeans\": (21,  68,  20, 20.0, 22, 5.8, 106),\n    \"lentil\":      (19,  68,  19, 24.5, 65, 6.9,  46),\n    \"mungbean\":    (21,  47,  20, 28.5, 85, 6.7,  48),\n    \"cotton\":      (118, 46,  20, 24.0, 80, 6.9,  80),\n    \"jute\":        (78,  47,  40, 25.0, 79, 6.7, 175),\n    \"banana\":      (100, 82,  50, 27.5, 80, 6.0, 105),\n    \"mango\":       (20,  27,  30, 31.0, 50, 5.8,  95),\n    \"apple\":       (21, 134, 199, 22.5, 92, 5.9, 113),\n    \"coffee\":      (101, 29,  30, 25.5, 58, 6.8, 158),\n}\n\n\n# ----------------------------------------------------------------------\n# STEP 1: DATA ACQUISITION\n# ----------------------------------------------------------------------\ndef make_sample_data(rows_per_crop=100, seed=42):\n    \"\"\"Creates simulated farm records (used when no CSV is found).\"\"\"\n    rng = np.random.default_rng(seed)\n    frames = []\n    for crop, typical in CROP_PROFILES.items():\n        typical = np.array(typical, dtype=float)\n        # No two farms are identical: typical value x (1 +/- about 12% noise)\n        values = typical * rng.normal(1, 0.12, size=(rows_per_crop, len(FEATURES)))\n        farm = pd.DataFrame(values, columns=FEATURES)\n        farm[TARGET] = crop\n        frames.append(farm)\n    data = pd.concat(frames, ignore_index=True)\n    data[\"humidity\"] = data[\"humidity\"].clip(upper=100)  # max possible is 100%\n    data[\"ph\"] = data[\"ph\"].clip(3.5, 9.5)               # realistic soil pH\n    return data.sample(frac=1, random_state=seed).round(2).reset_index(drop=True)\n\n\ndef load_data():\n    \"\"\"Loads crop_data.csv, or creates it if it does not exist.\"\"\"\n    print(\"--- STEP 1: DATA ACQUISITION ---\")\n    if os.path.exists(DATA_FILE):\n        print(f\"Loading data from {DATA_FILE}\")\n        df = pd.read_csv(DATA_FILE)\n    else:\n        print(f\"{DATA_FILE} not found -> creating simulated sample data\")\n        df = make_sample_data()\n        df.to_csv(DATA_FILE, index=False)\n\n    missing = [c for c in FEATURES + [TARGET] if c not in df.columns]\n    if missing:\n        raise ValueError(f\"Your CSV must contain these columns: {missing}\")\n    return df.dropna()  # data cleaning: remove rows with empty values\n\n\n# ----------------------------------------------------------------------\n# STEP 2: DATA EXPLORATION\n# ----------------------------------------------------------------------\ndef explore_data(df):\n    print(\"\\n--- STEP 2: DATA EXPLORATION ---\")\n    print(\"Rows, columns :\", df.shape)\n    print(\"Missing values:\", int(df.isnull().sum().sum()))\n    print(\"Crops in data :\", df[TARGET].nunique())\n    print(df[FEATURES].describe().round(2))\n\n    # Chart: how much rain does each crop need?\n    df.boxplot(column=\"rainfall\", by=TARGET, rot=90, figsize=(10, 5))\n    plt.suptitle(\"\")\n    plt.title(\"Rainfall needed by each crop\")\n    plt.xlabel(\"Crop\")\n    plt.ylabel(\"Rainfall (mm)\")\n    plt.tight_layout()\n    plt.savefig(\"1_rainfall_by_crop.png\")\n    plt.close()\n    print(\"Chart saved: 1_rainfall_by_crop.png\")\n\n\n# ----------------------------------------------------------------------\n# STEPS 3-5: PREPARATION, MODELLING AND EVALUATION\n# ----------------------------------------------------------------------\ndef train_and_evaluate(df):\n    print(\"\\n--- STEP 3: DATA PREPARATION ---\")\n    X = df[FEATURES]   # inputs  (what the model sees)\n    y = df[TARGET]     # output  (what the model must predict)\n    # 80% of data to learn from, 20% kept hidden to test the model fairly\n    X_train, X_test, y_train, y_test = train_test_split(\n        X, y, test_size=0.2, random_state=42, stratify=y)\n    print(f\"Training rows: {len(X_train)} | Testing rows: {len(X_test)}\")\n\n    print(\"\\n--- STEP 4: MODELLING ---\")\n    candidates = {\n        \"Decision Tree\": DecisionTreeClassifier(random_state=42),\n        \"K-Nearest Neighbours\": KNeighborsClassifier(n_neighbors=5),\n        \"Random Forest\": RandomForestClassifier(n_estimators=200, random_state=42),\n    }\n    best_name, best_model, best_acc = \"\", None, 0.0\n    for name, algorithm in candidates.items():\n        # Pipeline = scale the numbers first, then apply the algorithm\n        model = make_pipeline(StandardScaler(), algorithm)\n        model.fit(X_train, y_train)                       # the learning step\n        acc = accuracy_score(y_test, model.predict(X_test))\n        print(f\"{name:<22} accuracy: {acc * 100:.2f}%\")\n        if acc > best_acc:\n            best_name, best_model, best_acc = name, model, acc\n    print(f\"\\nBest model chosen automatically: {best_name}\")\n\n    print(\"\\n--- STEP 5: EVALUATION ---\")\n    y_pred = best_model.predict(X_test)\n    print(classification_report(y_test, y_pred))  # precision, recall, F1\n\n    # Confusion matrix: which crops does the model mix up?\n    fig, ax = plt.subplots(figsize=(9, 8))\n    ConfusionMatrixDisplay.from_predictions(\n        y_test, y_pred, ax=ax, xticks_rotation=90, cmap=\"Greens\", colorbar=False)\n    ax.set_title(f\"Confusion Matrix - {best_name}\")\n    plt.tight_layout()\n    plt.savefig(\"2_confusion_matrix.png\")\n    plt.close()\n\n    # Feature importance: which input matters most? (tree-based models only)\n    algorithm = best_model[-1]\n    if hasattr(algorithm, \"feature_importances_\"):\n        importance = pd.Series(algorithm.feature_importances_, index=FEATURES)\n        importance.sort_values().plot(\n            kind=\"barh\", color=\"seagreen\", title=\"Which input matters most?\")\n        plt.tight_layout()\n        plt.savefig(\"3_feature_importance.png\")\n        plt.close()\n    print(\"Charts saved: 2_confusion_matrix.png, 3_feature_importance.png\")\n    return best_model\n\n\n# ----------------------------------------------------------------------\n# STEP 6: PREDICTION (using the trained model)\n# ----------------------------------------------------------------------\ndef recommend(model, df, values):\n    \"\"\"Takes 7 numbers and prints the top 3 crops with confidence.\"\"\"\n    sample = pd.DataFrame([values], columns=FEATURES)\n    probabilities = model.predict_proba(sample)[0]\n    top3 = np.argsort(probabilities)[::-1][:3]\n    print(\"\\n  Recommended crops:\")\n    for rank, i in enumerate(top3, start=1):\n        print(f\"   {rank}. {model.classes_[i].title():<12} \"\n              f\"confidence: {probabilities[i] * 100:.1f}%\")\n\n    # Responsible AI: warn if the input is unlike anything the model has seen\n    for col, value in zip(FEATURES, values):\n        if not df[col].min() <= value <= df[col].max():\n            print(f\"   ! Warning: {col}={value} is outside the training data \"\n                  \"range. Treat this result with caution.\")\n\n\ndef ask_user(model, df):\n    \"\"\"Keeps asking for field details and recommends crops.\"\"\"\n    print(\"\\n--- TRY IT WITH YOUR OWN FIELD DATA (type q to quit) ---\")\n    while True:\n        values = []\n        try:\n            for col in FEATURES:\n                low, high = df[col].min(), df[col].max()\n                text = input(f\"  {QUESTIONS[col]} [{low:.1f} to {high:.1f}]: \")\n                if text.strip().lower() == \"q\":\n                    print(\"Thank you for using AgriMitra!\")\n                    return\n                values.append(float(text))\n        except ValueError:\n            print(\"  Please enter numbers only.\\n\")\n            continue\n        except EOFError:  # no keyboard input available (some online editors)\n            return\n        recommend(model, df, values)\n        print()\n\n\n# ----------------------------------------------------------------------\n# MAIN PROGRAM\n# ----------------------------------------------------------------------\ndef main():\n    print(\"=\" * 62)\n    print(\"  AgriMitra - AI Crop Recommendation System\")\n    print(\"=\" * 62)\n\n    df = load_data()\n    explore_data(df)\n    model = train_and_evaluate(df)\n\n    joblib.dump(model, MODEL_FILE)  # save so other programs can reuse it\n    print(f\"\\nTrained model saved as {MODEL_FILE}\")\n\n    print(\"\\n--- DEMO PREDICTION ---\")\n    demo = [85, 45, 42, 23, 80, 6.5, 230]\n    print(\"Field details (N, P, K, temp, humidity, pH, rainfall):\", demo)\n    recommend(model, df, demo)\n\n    ask_user(model, df)\n\n\nif __name__ == \"__main__\":\n    main()\n"
+}
